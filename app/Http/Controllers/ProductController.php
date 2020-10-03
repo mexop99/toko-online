@@ -4,10 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+
+    /**
+     * FUNCTION __CONSTRUCT
+     */
+    public function __construct()
+    {
+        $this->middleware(function($request, $next){
+            if(Gate::allows('manage-products'))return $next($request);
+            abort(403,'Anda Tidak Memiliki hak akses');
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -47,6 +61,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        /**
+         * VALIDASI CREATE PRODUCTS
+         */
+
+        Validator::make($request->all(),[
+            "image"=>"required",
+            "title"=>"required|min:6|max:20",
+            "description"=>"required|min:11|max:250",
+            "categories"=>"required",
+            "stock"=>"required|max:11",
+            "price"=>"required|max:16"
+        ])->validate();
+
+
         $new_product = new Product;
         $new_product->title =$request->get('title');
         $new_product->description =$request->get('description');
@@ -119,8 +147,22 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
+        /**
+         * VALIDASI UPDATE DATA PRODUCT
+         */
+        Validator::make($request->all(),[
+            "title" => "required|min:6|max:25",
+            "description" => "required|min:11|max:250",
+            "categories"=>"required",
+            "stock" => "required",
+            "price" => "required",
+        ])->validate();
+
+        /**
+         * PENGAMBILAN DATA DARI FORM EDIT
+         */
         $product->title = $request->get('title');
-        $product->slug = \Str::slug($request->get('title'));
+        $product->slug = \Str::slug($request->get('title') ."-" . $id);
         $product->description = $request->get('description');
         $product->stock = $request->get('stock');
         $product->price = $request->get('price');

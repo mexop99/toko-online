@@ -24,39 +24,57 @@ Create Product
                 <div class="form-group row">
                     <label for="image" class="col-sm-3 col-form-label">Image</label>
                     <div class="col-sm-9">
-                        <input type="file" class="form-control" id="image" name="image">
+                        <input type="file" class="form-control {{ $errors->first('image') ? "is-invalid":"" }}" id="image" name="image">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('image') }}
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="title" class="col-sm-3 col-form-label">Title</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="title" placeholder="tuliskan nama product..."
-                            name="title">
+                        <input value="{{ old('title') }}" type="text" class="form-control {{ $errors->first('title') ? "is-invalid":"" }}" id="title" placeholder="tuliskan nama product..."
+                            name="title" value="{{ old('title') }}">
+                            <div class="invalid-feedback">
+                                {{ $errors->first('title') }}
+                            </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="description" class="col-sm-3 col-form-label">Description</label>
                     <div class="col-sm-9">
-                        <textarea type="text" class="form-control" id="description"
-                            placeholder="tuliskan deksripsi product..." name="description" rows="10"></textarea>
+                        <textarea type="text" class="form-control {{ $errors->first('description') ? "is-invalid":"" }}" id="description"
+                            placeholder="tuliskan deksripsi product..." name="description" rows="10">{{ old('description') }}</textarea>
+                            <div class="invalid-feedback">
+                                {{ $errors->first('description') }}
+                            </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="categories" class="col-sm-3 col-form-label">Category</label>
                     <div class="col-sm-9">
-                        <select name="categories[]" id="categories" class="form-control" multiple></select>
+                        <select name="categories[]" id="categories" class="form-control {{ $errors->first('categories') ? "is-invalid":"" }}" multiple></select>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('description') }}
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="stock" class="col-sm-3 col-form-label">Stock</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control" id="stock" placeholder="exp: 100" name="stock">
+                        <input value="{{ old('stock') }}" type="number" class="form-control {{ $errors->first('stock') ? "is-invalid":"" }}" id="stock" placeholder="exp: 100" name="stock">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('stock') }}
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="price" class="col-sm-3 col-form-label">Price</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control" id="price" placeholder="exp: 100000" name="price">
+                        <input value="{{ old('price') }}" type="number" class="form-control {{ $errors->first('price') ? "is-invalid":"" }}" id="price" placeholder="exp: 100000" name="price">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('price') }}
+                        </div>
                     </div>
                 </div>
 

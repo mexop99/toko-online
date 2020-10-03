@@ -28,7 +28,13 @@ Edit Category
                 <div class="form-group row">
                     <label for="name" class="col-sm-3">Nama Categori</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="name" value="{{ $category->name }}">
+                        <input type="text"
+                            class="form-control {{ $errors->first('name') ? "is-invalid":"" }}"
+                            name="name"
+                            value="{{ old('name') ? old('name') : $category->name }}">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('name') }}
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -56,6 +62,8 @@ Edit Category
                 </div>
                 <button type="submit" class="btn btn-sm btn-primary">
                     <span class="oi oi-check"></span> Save</button>
+                <a href="{{ route('categories.index') }}" class="btn btn-sm btn-danger"><span
+                        class="oi oi-x"></span> Cancel</a>
             </div>
         </div>
     </form>

@@ -3,11 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
+
+    /**
+     * FUNCTION __CONSTRUCT
+     */
+    public function __construct()
+    {
+        $this->middleware(function($request, $next){
+            if(Gate::allows('manage-categories'))return $next($request);
+            abort(403,'Anda Tidak Memiliki hak akses');
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *

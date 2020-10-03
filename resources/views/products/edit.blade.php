@@ -47,7 +47,10 @@ Edit Product
                 <div class="form-group row">
                     <label for="title" class="col-sm-3">Title</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="title" value="{{ $product->title }}">
+                        <input type="text" class="form-control {{ $errors->first('title') ? "is-invalid":"" }}" name="title" value="{{old('title') ? old('title') : $product->title }}">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('title') }}
+                        </div>
                     </div>
                 </div>
 
@@ -62,30 +65,42 @@ Edit Product
                     <label for="description" class="col-sm-3">Descriptions</label>
                     <div class="col-sm-9">
                         <textarea name="description" id="description" cols="30" rows="10"
-                            class="form-control">{{ $product->description }}</textarea>
+                            class="form-control {{ $errors->first('description') ? "is-invalid":"" }}">{{ old('description') ? old('description') : $product->description }}</textarea>
+                            <div class="invalid-feedback">
+                                {{ $errors->first('description') }}
+                            </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="categories" class="col-sm-3">Categories</label>
                     <div class="col-sm-9">
-                        <select name="categories[]" id="categories" class="form-control" multiple></select>
+                        <select name="categories[]" id="categories" class="form-control {{ $errors->first('categories') ? "is-invalid":"" }}" multiple></select>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('description') }}
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="stock" class="col-sm-3">Stock</label>
                     <div class="col-sm-9">
-                        <input type="number" name="stock" id="stock" class="form-control"
-                            value="{{ $product->stock }}">
+                        <input type="number" name="stock" id="stock" class="form-control {{ $errors->first('stock') ? "is-invalid":"" }}"
+                            value="{{ old('stock') ? old('stock') : $product->stock }}">
+                            <div class="invalid-feedback">
+                                {{ $errors->first('stock') }}
+                            </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="price" class="col-sm-3">Price</label>
                     <div class="col-sm-9">
-                        <input type="number" name="price" id="price" class="form-control"
-                            value="{{ $product->price }}">
+                        <input type="number" name="price" id="price" class="form-control {{ $errors->first('price') ? "is-invalid":"" }}"
+                            value="{{ old('stock') ? old('stock') : $product->price }}">
+                            <div class="invalid-feedback">
+                                {{ $errors->first('price') }}
+                            </div>
                     </div>
                 </div>
 
